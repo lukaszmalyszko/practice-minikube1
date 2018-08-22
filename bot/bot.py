@@ -8,7 +8,7 @@ GREETING_RESPONSES = ["'sup bro", "hey", "*nods*", "hey you get my snap?"]
 
 app = Flask(__name__)
 
-@app.route('/get_sentence', methods=['POST'])
+@app.route('/get_sentence', methods=['GET'])
 def get_sentence():
     word = request.get_json(silent=True)
     if word['message'] in GREETING_KEYWORDS:
