@@ -1,54 +1,59 @@
-# Aplikacja stworzona w ramach ćwiczeń z Kubernetes'a. 
+# Application created to practice Kubernetes with Minikube.
 
-Do wykonania zadania należy pobrać: docker, kubectl, minikube oraz maszynę wirtualną (np. VirtualBoxa).
+### Before you begin
+To work with Kuberenetes you must install following programs:
+- docker
+- kubectl
+- minikube
+- virtual machine (e.g. VirtualBox)
 
-Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch mikroserwisów umieszczonych w jednym klastrze:
+**Remember to enable VT-x or AMD-v in your computer's BIOS**
+
+The goal of the exercise was to create an application which have two microservices stored in one cluster:
 
 ![Diagram](https://github.com/lukaszmalyszko/practice-minikube1/blob/master/Untitled%20Diagram.jpg)
 
-### Schemat działania:
-1. Użytkownik wysyła request do serwera, przekazując parametr query 'message'.
-2. Serwer przekazuje żądanie do bota.
-3. Jeśli wiadomość jest w zbiorze znanych przywitań bota, bot zwraca losową odpowiedź.
-4. Serwer przekazuje otrzymaną wiadomość do użytkownika.
+### Workflow:
+1. User sends a request to the server, passing query parameter 'message'.
+2. Server passes a request to bot.
+3. If message is contained in the set of known greetings, bot returns random object from greeting responses.
+4. Server passes received message to user.
 
-### Przygotowanie aplikacji:
-1. Najpierw należy uruchomić minikube komendą:
+### Setting up an application:
+1. Run minikube
   ```
   minikube start
   ```
 
-2. Następnie ustawiamy kontekst, aby kubectl wiedział, z którym klastrem współpracuje:
+2. Set the Minikube context:
   ```
   kubectl config use-context minikube
   ```
 
-3. Utworzenie serwisu bota (musimy znajdować się w folderze bot)
+3. Create bot service (Run those commends from ~/bot location)
   ```
   eval $(minikube docker-env)
   docker build -t bot:v1
-  kubectl create -f bot_deploy.yaml
-  kubectl create -f bot_service.yaml
+  kubectl create -f .
   ```
 
-4. Utworzenie serwisu serwera (musimy znajdować się w folderze server)
+4. Create server service (Run those commends from ~/server location)
   ```
   eval $(minikube docker-env)
   docker build -t server:v1
-  kubectl create -f server_deploy.yaml
-  kubectl create -f server_service.yaml
+  kubectl create -f .
   ```
 
-### Testowanie aplikacji
-1. Sprawdzenie adresu IP serwisu serwera
+### Testing application
+1. Check server's service's Cluster IP
   ```
   kubectl get services
   ```
-2. Uruchomienie ssh minikube'a
+2. Run ssh on Minikube
   ```
   minikube ssh
   ```
-3. Wysłanie żądania z użyciem 'curl' do serwera
+3. Send request with 'curl' to the server
   ```
   curl http://[adres_ip_serwisu_serwera]/get_sentence?message=[wiadomosc]
   ```
@@ -58,7 +63,7 @@ Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch m
   
 ---
   
-Pomocne linki:
+Useful links:
 
 https://kubernetes.io/docs/tutorials/hello-minikube/
 
