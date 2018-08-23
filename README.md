@@ -8,7 +8,7 @@ Najpierw należy uruchomić minikube komendą:
 minikube start
 ```
 
-Następnie ustawiamy kontekst, aby kubectl wiedział z którym klastrem współpracuje:
+Następnie ustawiamy kontekst, aby kubectl wiedział, z którym klastrem współpracuje:
 ```
 kubectl config use-context minikube
 ```
