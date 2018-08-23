@@ -9,9 +9,9 @@ To work with Kuberenetes you must install following programs:
 
 **Remember to enable VT-x or AMD-v in your computer's BIOS**
 
-The goal of the exercise was to create an application which have two microservices stored in one cluster:
+The goal of the exercise was to create an application which have two microservices stored in one cluster communicating each other:
 
-![Diagram](https://github.com/lukaszmalyszko/practice-minikube1/blob/master/Untitled%20Diagram.jpg)
+![Diagram](https://github.com/lukaszmalyszko/practice-minikube1/blob/master/schema.jpg)
 
 ### Workflow:
 1. User sends a request to the server, passing query parameter 'message'.
@@ -55,7 +55,7 @@ The goal of the exercise was to create an application which have two microservic
   ```
 3. Send request with 'curl' to the server
   ```
-  curl http://[adres_ip_serwisu_serwera]/get_sentence?message=[wiadomosc]
+  curl http://[service's cluster ip]/get_sentence?message=[message]
   ```
   
   
