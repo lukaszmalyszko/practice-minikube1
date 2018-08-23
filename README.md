@@ -1,5 +1,6 @@
-Aplikacja stworzona w ramach ćwiczeń z Kubernetes'a. Do wykonania zadania należy pobrać: docker, kubectl, minikube oraz maszynę wirtualną (np. VirtualBoxa).
+# Aplikacja stworzona w ramach ćwiczeń z Kubernetes'a. 
 
+Do wykonania zadania należy pobrać: docker, kubectl, minikube oraz maszynę wirtualną (np. VirtualBoxa).
 Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch mikroserwisów umieszczonych w jednym klastrze.
 
 Najpierw należy uruchomić minikube komendą:
