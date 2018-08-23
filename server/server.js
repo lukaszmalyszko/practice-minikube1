@@ -4,7 +4,7 @@ var _request = require('request');
 
 var options = {
   json: true,
-  url: 'https://jsonplaceholder.typicode.com/posts',
+  url: 'http://bot:8080/get_sentence',
 }
 
 var handleRequest = function(request, response) {

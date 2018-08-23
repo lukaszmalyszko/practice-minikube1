@@ -10,8 +10,8 @@ app = Flask(__name__)
 
 @app.route('/get_sentence', methods=['GET'])
 def get_sentence():
-    word = request.get_json(silent=True)
-    if word['message'] in GREETING_KEYWORDS:
+    word = request.args.get('message')
+    if word in GREETING_KEYWORDS:
         return jsonify(random.choice(GREETING_RESPONSES))
 
 if __name__ == "__main__":
