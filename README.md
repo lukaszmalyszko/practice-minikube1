@@ -19,7 +19,7 @@ The goal of the exercise was to create an application which have two microservic
 3. If message is contained in the set of known greetings, bot returns random object from greeting responses.
 4. Server passes received message to user.
 
-### Setting up an application:
+### Setting up your application:
 1. Run minikube
   ```
   minikube start
@@ -44,7 +44,7 @@ The goal of the exercise was to create an application which have two microservic
   kubectl create -f .
   ```
 
-### Testing an application
+### Testing your application
 1. Check server's service's Cluster IP
   ```
   kubectl get services
