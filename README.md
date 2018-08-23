@@ -1,7 +1,9 @@
 # Aplikacja stworzona w ramach ćwiczeń z Kubernetes'a. 
 
 Do wykonania zadania należy pobrać: docker, kubectl, minikube oraz maszynę wirtualną (np. VirtualBoxa).
-Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch mikroserwisów umieszczonych w jednym klastrze.
+Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch mikroserwisów umieszczonych w jednym klastrze:
+
+![Diagram](https://github.com/lukaszmalyszko/practice-minikube1/blob/master/Untitled%20Diagram.jpg)
 
 Najpierw należy uruchomić minikube komendą:
 ```
