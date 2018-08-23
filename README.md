@@ -57,5 +57,7 @@ Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch m
   
 Pomocne linki:
 https://kubernetes.io/docs/tutorials/hello-minikube/
+
 https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
+
 https://apps.worldwritable.com/tutorials/chatbot/
