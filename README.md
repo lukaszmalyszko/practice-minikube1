@@ -52,3 +52,10 @@ Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch m
   ```
   curl http://[adres_ip_serwisu_serwera]/get_sentence?message=[wiadomosc]
   ```
+  
+  
+  
+Pomocne linki:
+https://kubernetes.io/docs/tutorials/hello-minikube/
+https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
+https://apps.worldwritable.com/tutorials/chatbot/
