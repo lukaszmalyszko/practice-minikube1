@@ -1,6 +1,6 @@
 # Application created to practice Kubernetes with Minikube.
 
-### Before you begin
+### Before you begin:
 To work with Kuberenetes you must install following programs:
 - docker
 - kubectl
@@ -44,7 +44,7 @@ The goal of the exercise was to create an application which have two microservic
   kubectl create -f .
   ```
 
-### Testing your application
+### Testing your application:
 1. Check server's service's Cluster IP
   ```
   kubectl get services
