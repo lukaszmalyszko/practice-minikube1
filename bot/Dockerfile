@@ -6,7 +6,7 @@ WORKDIR /tmp
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY bot.py .
 
