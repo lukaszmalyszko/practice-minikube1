@@ -44,7 +44,7 @@ The goal of the exercise was to create an application which have two microservic
   kubectl create -f .
   ```
 
-### Testing application
+### Testing an application
 1. Check server's service's Cluster IP
   ```
   kubectl get services
