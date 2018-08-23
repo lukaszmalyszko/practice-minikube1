@@ -55,6 +55,9 @@ Celem było stworzenie aplikacji składającej się z użytkownika oraz dwóch m
   
   
   
+  
+---
+  
 Pomocne linki:
 
 https://kubernetes.io/docs/tutorials/hello-minikube/
