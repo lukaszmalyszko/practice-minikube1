@@ -33,14 +33,14 @@ The goal of the exercise was to create an application which have two microservic
 3. Create bot service (Run those commends from ~/bot location)
   ```
   eval $(minikube docker-env)
-  docker build -t bot:v1
+  docker build -t bot:v1 .
   kubectl create -f .
   ```
 
 4. Create server service (Run those commends from ~/server location)
   ```
   eval $(minikube docker-env)
-  docker build -t server:v1
+  docker build -t server:v1 .
   kubectl create -f .
   ```
 

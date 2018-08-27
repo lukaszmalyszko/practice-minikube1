@@ -28,7 +28,7 @@ spec:
         run: server-node
     spec:
       containers:
-      - image: server-node:v1
+      - image: server:v1
         imagePullPolicy: Never
         name: server-node
         ports:
