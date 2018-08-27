@@ -73,7 +73,7 @@ spec:
         run: bot
     spec:
       containers:
-      - image: bot:v2
+      - image: bot:v1
         imagePullPolicy: Never
         name: bot
         ports:

@@ -6,16 +6,16 @@ metadata:
   creationTimestamp: null
   generation: 1
   labels:
-    run: server-node
-  name: server-node
-  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/server-node
+    run: server
+  name: server
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/server
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      run: server-node
+      run: server
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -25,12 +25,12 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        run: server-node
+        run: server
     spec:
       containers:
-      - image: server-node:v1
+      - image: server:v1
         imagePullPolicy: Never
-        name: server-node
+        name: server
         ports:
         - containerPort: 8080
           protocol: TCP
