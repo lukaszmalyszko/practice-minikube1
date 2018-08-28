@@ -1,6 +1,16 @@
-FROM node:6.9.2
-COPY package*.json ./
-RUN npm install
+FROM python:3.7-slim
+
+COPY requirements.txt /tmp
+
+WORKDIR /tmp
+
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
 EXPOSE 8080
-COPY server.js .
-CMD node server.js
+
+COPY server.py .
+
+CMD [ "python", "server.py"]
+
+
+
