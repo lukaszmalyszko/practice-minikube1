@@ -3,9 +3,9 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: server-node
-  name: server-node
-  selfLink: /api/v1/namespaces/default/services/server-node
+    run: server
+  name: server
+  selfLink: /api/v1/namespaces/default/services/server
 spec:
   externalTrafficPolicy: Cluster
   ports:
@@ -13,8 +13,8 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: server-node
+    run: server
   sessionAffinity: None
-  type: NodePort
+  type: LoadBalancer
 status:
   loadBalancer: {}
