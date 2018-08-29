@@ -5,16 +5,13 @@ import random, logging, requests, time
 # Create a metric to track time spent and requests made.
 REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
 
-INDEX_TIME = Summary('index_request_processing_seconds', 'DESC: INDEX time spent processing request')
-
 # Create a metric to count the number of runs on process_request()
 c = Counter('requests_for_host', 'Number of runs of the process_request method', ['method', 'endpoint'])
-
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
-@INDEX_TIME.time()
+@REQUEST_TIME.time()
 def get_sentence():
 	path = str(request.path)
 	verb = request.method
