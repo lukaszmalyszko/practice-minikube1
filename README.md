@@ -55,7 +55,7 @@ The goal of the exercise was to create an application which have two microservic
   ```
 3. Send request with 'curl' to the server
   ```
-  curl http://[service's cluster ip]/get_sentence?message=[message]
+  curl http://[service's cluster ip]?message=[message]
   ```
 
 ### Centralized logging:
@@ -78,6 +78,7 @@ https://timber.io/blog/collecting-application-logs-on-kubernetes/
 ### Monitoring:
 
 #### Prometheus configuration:
+Run those commands from 'prometheus' directory.
 1. Create monitoring namespace
   ```
 kubectl create namespace monitoring
