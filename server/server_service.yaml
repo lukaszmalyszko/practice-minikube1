@@ -3,7 +3,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: server
+    app: server
   name: server
   selfLink: /api/v1/namespaces/default/services/server
 spec:
@@ -13,7 +13,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: server
+    app: server
   sessionAffinity: None
   type: LoadBalancer
 status:

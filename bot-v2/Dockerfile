@@ -8,6 +8,6 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
 EXPOSE 8080
 
-COPY bot.py .
+COPY bot-v2.py .
 
-CMD ["python", "bot.py"]
+CMD ["python", "bot-v2.py"]

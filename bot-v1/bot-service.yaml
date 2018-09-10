@@ -3,7 +3,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: bot
+    app: bot
   name: bot
   selfLink: /api/v1/namespaces/default/services/bot
 spec:
@@ -12,7 +12,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: bot
+    app: bot
   sessionAffinity: None
   type: ClusterIP
 status:
@@ -22,7 +22,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: bot
+    app: bot
   name: bot
   selfLink: /api/v1/namespaces/default/services/bot
 spec:
@@ -31,7 +31,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: bot
+    app: bot
   sessionAffinity: None
   type: ClusterIP
 status:
