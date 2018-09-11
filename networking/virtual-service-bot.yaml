@@ -18,6 +18,8 @@ metadata:
 spec:
   hosts:
   - server
+  gateways:
+  - botapp-gateway
   http:
   - route:
     - destination:

@@ -19,7 +19,8 @@ def get_sentence():
 	c.labels(**label_dict).inc()
 
 	message = {'message' : request.args.get('message')}
-	return requests.get('http://bot:8080/get_sentence', params=message).content
+	headers = {key: value for (key, value) in request.headers if key != 'Host'}
+	return requests.get('http://bot:8080/get_sentence', params=message, headers=headers).content
 
 @app.route('/metrics')
 def metrics():  
