@@ -12,7 +12,7 @@ To work with Kuberenetes you must install following programs:
 
 The goal of the exercise was to create an application which have two microservices stored in one cluster communicating each other:
 
-![Diagram](https://github.com/lukaszmalyszko/practice-minikube1/blob/master/schema.jpg)
+![Diagram](https://github.com/lukaszmalyszko/practice-minikube1/blob/istio/schema-istio.png)
 
 ### Workflow:
 1. User sends a request to the server, passing query parameter 'message'.
