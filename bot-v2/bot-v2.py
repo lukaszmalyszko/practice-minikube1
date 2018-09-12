@@ -15,13 +15,12 @@ def get_sentence():
     word = request.args.get('message')
     if 'fail' in request.headers:
         if float(request.headers['fail']) >= round(random.random(),1):
-            abort(500) 
+            abort(500)
+    if word in GREETING_KEYWORDS:
+        return jsonify(random.choice(GREETING_RESPONSES))
     else:
-        if word in GREETING_KEYWORDS:
-            return jsonify(random.choice(GREETING_RESPONSES))
-        else:
-            app.logger.warning('Unable to send response')
-            return jsonify("man, i can't understand you :(")
+        app.logger.warning('Unable to send response')
+        return jsonify("man, i can't understand you :(")
  
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080)

@@ -13,11 +13,12 @@ spec:
     route:
     - destination:
         host: bot
-        subset: v1
-  - route:
-    - destination:
-        host: bot
         subset: v2
     retries:
       attempts: 3
       perTryTimeout: 2s
+  - route:
+    - destination:
+        host: bot
+        subset: v1
+

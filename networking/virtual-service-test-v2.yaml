@@ -13,8 +13,8 @@ spec:
     route:
     - destination:
         host: bot
-        subset: v1
+        subset: v2
   - route:
     - destination:
         host: bot
-        subset: v2
+        subset: v1
