@@ -1,10 +1,11 @@
-# Application created to practice Kubernetes with Minikube.
+# Configuration Istio with Kubernetes on Minikube.
 
 ### Before you begin:
 To work with Kuberenetes you must install following programs:
 - docker
 - kubectl
 - minikube
+- istio-1.0.1
 - virtual machine (e.g. VirtualBox)
 
 **Remember to enable VT-x or AMD-v in your computer's BIOS**
@@ -15,112 +16,94 @@ The goal of the exercise was to create an application which have two microservic
 
 ### Workflow:
 1. User sends a request to the server, passing query parameter 'message'.
-2. Server passes a request to bot.
+2. Server passes a request to bot service.
 3. If message is contained in the set of known greetings, bot returns random object from greeting responses.
 4. Server passes received message to user.
+
+There are 2 versions of the bot microservice:
+* v1:
+  * sends plain text
+* v2: 
+  * sends response with emoji at the end of the message
+  * if request headers contain one called 'fail', the value of this headers defines chance that service will throw HTTP 500 error 
 
 ### Setting up your application:
 1. Run minikube
   ```
-  minikube start
+  minikube start --memory=8192 --cpus=4 --kubernetes-version=v1.10.0     --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt"     --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key"
   ```
 
 2. Set the Minikube context:
   ```
   kubectl config use-context minikube
   ```
+3. Install istio on your cluster. Follow [istio docs](https://istio.io/docs/setup/kubernetes/helm-install/).
 
-3. Create bot service (Run those commends from ~/bot location)
+4. Enable automatic sidecar injection:
+  ```
+  kubectl label namespace default istio-injection=enabled
+  ```
+
+5. Create bot service (Run those commands from ~/bot location)
   ```
   eval $(minikube docker-env)
   docker build -t bot:v1 .
   kubectl create -f .
+  docker build -t bot:v2 ../bot-v2/
+  kubectl create -f ../bot-v2/bot-v2-deployment.yaml
   ```
 
-4. Create server service (Run those commends from ~/server location)
+5. Create server service (Run those commands from ~/server location)
   ```
   eval $(minikube docker-env)
   docker build -t server:v1 .
   kubectl create -f .
   ```
 
-### Testing your application:
-1. Check server's service's Cluster IP
+### Preparing istio components:
+1. Gateway configuration:
+   * Define the ingress gateway:
+     ```
+     kubectl apply -f networking/gateway.yaml
+     ```
+   * Set ingress ports:
+     ```
+     export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+     export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
+     ```
+   * Set ingress ip:
+     ```
+     export INGRESS_HOST=$(minikube ip)
+     ```
+   * Set GATEWAY_URL:
+     ```
+     export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
+     ```
+   * Test gateway:
+     ```
+     curl http://${GATEWAY_URL}
+     ```
+2. Apply default destination rules:
   ```
-  kubectl get services
+  kubectl apply -f networking/destination-rule-all.yaml
   ```
-2. Run ssh on Minikube
+### Sample traffic management rules:
+1. Route all traffic to v1 of each microservice:
   ```
-  minikube ssh
+  kubectl apply -f networking/virtual-service-all-v1.yaml
   ```
-3. Send request with 'curl' to the server
+2. Route all traffic to v2 if request headers contain one called 'user' with value 'jason':
   ```
-  curl http://[service's cluster ip]?message=[message]
+  kubectl apply -f networking/virtual-service-test-v2.yaml
   ```
-
-### Centralized logging:
-1. Create account on https://timber.io/.
-2. Create app on https://timber.io/ to colect Timber API Key.
-3. Create Kubernetes Secret to store our Timber API Key
+3. Route all traffic to v2 if request headers contain one called 'user' with value 'jason', moreover if HTTP request fails istio will execute 3 additional attempts to connect:
   ```
-kubectl create secret generic timber --from-literal=timber-api-key=TIMBER_API_KEY
+  kubectl apply -f networking/virtual-service-test-retry.yaml
   ```
-4. Launch Timber Agent DaemonSet
+1. Route all traffic to v1 with 30% chance of 5s delay:
   ```
-kubectl apply -f https://raw.githubusercontent.com/timberio/agent/master/support/scripts/kubernetes/timber-agent-daemonset-rbac.yaml
-
+  kubectl apply -f networking/virtual-service-test-delay.yaml
   ```
-If you need more information about Centralized logging with Timber visit this website:
-
-https://timber.io/blog/collecting-application-logs-on-kubernetes/
-
-
-### Monitoring:
-
-#### Prometheus configuration:
-Run those commands from 'prometheus' directory.
-1. Create monitoring namespace
-  ```
-kubectl create namespace monitoring
-  ```
-2. Create the cluster role
-  ```
-kubectl create -f clusterRole.yaml
-  ```
-3. Create config map in Kubernetes
-  ```
-kubectl create -f config-map.yaml -n monitoring
-  ```
-4. Create a deployment on monitoring namespace
-  ```
-kubectl create  -f prometheus-deployment.yaml -n monitoring
-  ```
-5. Exposing Prometheus As a Service
-  ```
-kubectl create -f prometheus-service.yaml -n monitoring
-  ```
-6. Now you can access the Prometheus dashboard using Kubernetes master IP with 30050 port. To check IP write:
-  ```
-kubectl cluster-info
-  ```
-
-#### Using Prometheus in Grafana:
-1. Open Grafana Dashboard using Kubernetes master IP with 30002 port
-2. Click Grafana logo and chose Data Sources
-3. Find on site button "Add data source"
-4. Select Prometheus as a Type
-5. Paste Prometheus URL and select direct Access
-6. Add new Dashboard
-7. Select for example Graph
-8. Click on "Panel Title" and choose edit
-9. In Metrics tab change Panel Data Source to your Prometheus Data Source
-
-  If you need more information about using Prometheus in Grafana visit this website:
-
-  http://docs.grafana.org/features/datasources/prometheus/
-
-
-
 
 
   
