@@ -100,12 +100,14 @@ There are 2 versions of the bot microservice:
   ```
   kubectl apply -f networking/virtual-service-test-retry.yaml
   ```
-1. Route all traffic to v1 with 30% chance of 5s delay:
+4. Route all traffic to v1 with 30% chance of 5s delay:
   ```
   kubectl apply -f networking/virtual-service-test-delay.yaml
   ```
-
-
+5. Route all traffic to v1 and mirror traffic to v2:
+  ```
+  kubectl apply -f networking/virtual-service-mirroring.yaml
+  ```
   
 ---
   
