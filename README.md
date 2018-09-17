@@ -154,8 +154,10 @@ There are 2 versions of the bot microservice:
  Access the Service graph by opening your browser to http://localhost:8088/force/forcegraph.html.
  
  * Collecting logs with Fluentd:
-   1. Create new telemetry data:
+   1. Configure new telemetry data:
    ```
+   KUBE_ENABLE_NODE_LOGGING=true
+   KUBE_LOGGING_DESTINATION=elasticsearch
    kubectl apply -f logging/new_telemetry.yaml
    ```
    2. Setting up  Fluentd, Elasticsearch, Kibana Stack
