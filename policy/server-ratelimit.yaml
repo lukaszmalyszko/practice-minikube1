@@ -10,14 +10,10 @@ spec:
     validDuration: 1s
     overrides:
     - dimensions:
-        destination: bot
-      maxAmount: 1
-      validDuration: 5s
-    - dimensions:
         destination: server
         source: "10.28.11.20"
-      maxAmount: 500
-      validDuration: 1s
+      maxAmount: 5
+      validDuration: 5s
     - dimensions:
         destination: server
       maxAmount: 2
@@ -65,6 +61,7 @@ metadata:
   name: quota
   namespace: istio-system
 spec:
+  match: match(request.headers["user"], "jason") == false
   actions:
   - handler: handler.memquota
     instances:
