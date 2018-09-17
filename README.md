@@ -109,6 +109,69 @@ There are 2 versions of the bot microservice:
   kubectl apply -f networking/virtual-service-mirroring.yaml
   ```
   
+### Sample rate limiting:
+* default rule is 500 requets every 1s
+* 2 requests every 5s if the destination is server
+* 5 requests every 5s if the destination is server and request headers contain one called "source" with value "10.28.11.20"
+* no limit if request headers contain one called "user" with value "jason"
+ ```
+ kubectl apply -f policy/server-ratelimit.yaml
+ ```
+ 
+ ### Sample authentication policy:
+ 1. Apply mesh authentication policy:
+ ```
+ kubectl apply -f policy/default-meshpolicy.yaml
+ ```
+ 2. Configure destination rule with mutual TLS:
+ ```
+ kubectl apply -f networking/destination-rule-all-mtls.yaml
+ ```
+ 
+ ### Metrics:
+ * Tracing with Jaeger:
+ ```
+ kubectl port-forward -n istio-system $(kubectl get pod -n istio-system -l app=jaeger -o jsonpath='{.items[0].metadata.name}') 16686:16686 &
+ ```
+ Access the Jaeger dashboard by opening your browser to http://localhost:16686.
+ 
+ * Collecting metrics and logs with Prometheus:
+ ```
+ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &
+ ```
+ Access the Prometheus dashboard by opening your browser to http://localhost:9090.
+ 
+ * Visualizing metrics with Grafana:
+ ```
+ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &
+ ```
+ Access the Grafana dashboard by opening your browser to http://localhost:3000.
+ 
+ * Generating Service Graph:
+ ```
+ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=servicegraph -o jsonpath='{.items[0].metadata.name}') 8088:8088 &
+ ```
+ Access the Service graph by opening your browser to http://localhost:8088/force/forcegraph.html.
+ 
+ * Collecting logs with Fluentd:
+   1. Create new telemetry data:
+   ```
+   kubectl apply -f logging/new_telemetry.yaml
+   ```
+   2. Setting up  Fluentd, Elasticsearch, Kibana Stack
+   ```
+   kubectl apply -f logging/logging-stack.yaml
+   ```
+   3. Running Fluentd daemon:
+   ```
+   kubectl apply -f fluentd-istio.yaml
+   ```
+   4. Run Kibana:
+   ```
+   kubectl -n logging port-forward $(kubectl -n logging get pod -l app=kibana -o jsonpath='{.items[0].metadata.name}') 5601:5601 &
+   ```
+   
+    Access the Kibana dashboard by opening your browser to http://localhost:5601.
 ---
   
 Useful links:
