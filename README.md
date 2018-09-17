@@ -166,7 +166,7 @@ There are 2 versions of the bot microservice:
    ```
    3. Running Fluentd daemon:
    ```
-   kubectl apply -f fluentd-istio.yaml
+   kubectl apply -f logging/fluentd-istio.yaml
    ```
    4. Run Kibana:
    ```
