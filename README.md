@@ -1,4 +1,4 @@
-# Configuration Istio with Kubernetes on Minikube.
+# Configure Istio with Kubernetes on Minikube.
 
 ### Before you begin:
 To work with Kuberenetes you must install following programs:
