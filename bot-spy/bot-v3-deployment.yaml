@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: bot-v3
+  name: bot-spy
 spec:
   replicas: 1
   template:
