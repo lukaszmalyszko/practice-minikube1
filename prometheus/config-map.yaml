@@ -112,6 +112,6 @@ data:
         kubernetes_sd_configs:
         - role: pod
         relabel_configs:
-        - source_labels: [__meta_kubernetes_pod_label_run]
+        - source_labels: [__meta_kubernetes_pod_label_app]
           regex: server
           action: keep
